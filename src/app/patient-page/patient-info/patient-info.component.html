@@ -1,0 +1,34 @@
+<h2> Информация о сделанных прививках</h2>
+
+<div *ngIf="!isLoaded">
+  Loading...
+</div>
+
+<div *ngIf="isLoaded">
+  <h4>
+      {{patient.soname}} {{patient.name}} {{patient.patronomic}}
+  </h4>
+
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Препарат</th>
+          <th scope="col">Наличие согласия на прививку</th>
+          <th scope="col">Дата проведения</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vaccine of vaccines; let idx = index">
+          <th scope="row">{{idx + 1}}</th>
+          <td>{{vaccine.medication}}</td>
+          <td>{{vaccine.agreement ? 'Да' : 'Нет'}}</td>
+          <td>{{vaccine.date | date:'dd.MM.yyyy'}} </td>
+          <td><a [routerLink]="['/patient', patient.id, 'edit']" class="btn btn-success">Редактировать</a></td>
+          <td>  <button class="btn btn-danger" (click)="delete(patient)">Удалить</button>  </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

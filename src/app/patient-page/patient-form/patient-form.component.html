@@ -1,0 +1,75 @@
+<div class="text-center" *ngIf="!isLoaded"> Loading ...</div>
+<form *ngIf="isLoaded" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <div>
+        <label for="soname">Фамилия</label>
+        <input type="text" id="soname" formControlName="soname">
+        <p class="alert alert-danger"
+        *ngIf="form.get('soname').invalid && form.get('soname').touched"
+      >
+        Поле обязательно для заполнения
+      </p>
+      </div>
+      <div>
+        <label for="name">Имя</label>
+        <input type="text" id="name" formControlName="name">
+        <p class="alert alert-danger"
+        *ngIf="form.get('name').invalid && form.get('name').touched"
+      >
+        Поле обязательно для заполнения
+      </p>
+      </div>
+      <div>
+        <label for="patronomic">Отчество</label>
+        <input type="text" id="patronomic" formControlName="patronomic">
+        <p class="alert alert-danger"
+        *ngIf="form.get('patronomic').invalid && form.get('patronomic').touched"
+      >
+        Поле обязательно для заполнения
+      </p>
+      </div>
+      <div>
+        <label for="birthday">Дата рождения</label>
+        <input
+          type="date"
+          id="birthday"
+          formControlName="birthday"
+          [min]="minDateStr"
+          [max]="maxDateStr"
+        >
+        <p class="alert alert-danger"
+        *ngIf="form.get('birthday').invalid && form.get('birthday').touched"
+      >
+        <span *ngIf="form.get('birthday').errors.maxDateError">
+          Дата рождения не может быть больше текущей даты
+        </span>
+        <span *ngIf="form.get('birthday').errors.minDateError">
+            Дата рождения не может быть меньше 1900 года
+          </span>
+    
+          <span *ngIf="form.get('birthday').errors.required">
+              Дата рождения должна быть заполнена
+            </span>
+      </p>
+      </div>
+      <div>
+          <label for="gender">Пол</label>
+          <div id="genderDiv">
+              <input type="radio" name="gender" id="gender1" value="Мужской" formControlName="gender" checked>
+              <label for="gender1">Мужской</label>
+              <input type="radio" name="gender" id="gender2" value="Женский" formControlName="gender">
+              <label for="gender2">Женский</label>
+          </div>
+      </div>
+      <div>
+        <span>СНИЛС</span> <input type="text" id="snils" formControlName="snils">
+      </div>
+      <p></p>
+    <div id="buttons">
+          <button type="submit" class="btn btn-primary" id="btnOk" [disabled]="form.invalid">Сохранить</button>
+  
+          <a [routerLink]="'/patient'" class="btn btn-primary" id="btnCancel">Отменить</a>
+  
+    </div>
+  </div>
+  </form>

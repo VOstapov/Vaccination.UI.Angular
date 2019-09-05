@@ -1,0 +1,7 @@
+<h2>Редактирование данных пациента</h2>
+
+<app-patient-form
+  (patientEmitter)="onSave($event)"
+  [patient]="patient"
+  [isLoaded]="isLoaded"
+></app-patient-form>

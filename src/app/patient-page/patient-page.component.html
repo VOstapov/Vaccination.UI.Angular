@@ -1,0 +1,36 @@
+<h2>Просмотр всех пациентов</h2>
+
+<a class="btn btn-primary" [routerLink]="'add'">Добавить</a>
+
+<!-- find -->
+
+<div *ngIf="!isLoaded" > Loading ...</div>
+
+<table *ngIf="isLoaded" class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Отчество</th>
+      <th scope="col">Дата рождения</th>
+      <th scope="col">Пол</th>
+      <th scope="col">СНИЛС</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let patient of patients; let idx = index">
+      <th scope="row">{{idx +1 }}</th>
+      <td>{{patient.soname}}</td>
+      <td>{{patient.name}}</td>
+      <td>{{patient.patronomic}}</td>
+      <td>{{patient.birthday | date:'dd.MM.yyyy'}} </td>
+      <td>{{patient.gender}}</td>
+      <td>{{patient.snils}}</td>
+      <td><a [routerLink]="['/patient', patient.id, 'edit']" class="btn btn-success">Редактировать</a></td>
+      <td>  <button class="btn btn-danger" (click)="delete(patient)">Удалить</button>  </td>
+    </tr>
+  </tbody>
+</table>
