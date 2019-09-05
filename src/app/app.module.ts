@@ -13,12 +13,15 @@ import { PatientEditComponent } from './patient-page/patient-edit/patient-edit.c
 import { PatientFormComponent } from './patient-page/patient-form/patient-form.component';
 import { PatientInfoComponent } from './patient-page/patient-info/patient-info.component';
 import { VaccineService } from './shared/services/vaccine.service';
+import { VaccineFormComponent } from './patient-page/patient-info/vaccine-form/vaccine-form.component';
+import { VaccineAddComponent } from './patient-page/patient-info/vaccine-add/vaccine-add.component';
 
 const appRoutes: Routes =[
   { path: 'patient', component: PatientPageComponent},
   { path: 'patient/add', component: PatientAddComponent},
   { path: 'patient/:id/edit', component: PatientEditComponent},
   { path: 'patient/:id', component: PatientInfoComponent},
+  { path: 'patient/:id/vaccine/add', component: VaccineAddComponent},
   { path: '**', redirectTo: '/patient'}
 ];
 
@@ -30,7 +33,9 @@ const appRoutes: Routes =[
     PatientAddComponent,
     PatientEditComponent,
     PatientFormComponent,
-    PatientInfoComponent
+    PatientInfoComponent,
+    VaccineFormComponent,
+    VaccineAddComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,27 @@
+<h2>
+  Добавление прививки
+</h2>
+
+<div *ngIf="!isLoaded">
+  Loading...
+</div>
+
+<div *ngIf="isLoaded">
+  <h5>
+    {{patient.soname}} {{patient.name}} {{patient.patronomic}}
+  </h5>
+
+  <div id="vcnAddDiv">
+
+    <app-vaccine-form (formEmitter)="formChanged($event)" [isLoaded]="true"></app-vaccine-form>
+
+    <div id="buttons">
+      <button type="button" class="btn btn-primary" id="btnVcnOk" [disabled]="!form || form.invalid"
+        (click)="onSave()">Сохранить</button>
+
+      <a [routerLink]="'../../'" class="btn btn-primary" id="btnVcnCancel">Отменить</a>
+
+    </div>
+
+  </div>
+</div>

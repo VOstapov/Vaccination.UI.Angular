@@ -1,5 +1,5 @@
-<div class="text-center" *ngIf="!isLoaded"> Loading ...</div>
-<form *ngIf="isLoaded" [formGroup]="form" (ngSubmit)="onSubmit()">
+<div *ngIf="!isLoaded"> Loading ...</div>
+<form *ngIf="isLoaded" [formGroup]="form">
     <div>
       <div>
         <label for="soname">Фамилия</label>
@@ -65,11 +65,5 @@
         <span>СНИЛС</span> <input type="text" id="snils" formControlName="snils">
       </div>
       <p></p>
-    <div id="buttons">
-          <button type="submit" class="btn btn-primary" id="btnOk" [disabled]="form.invalid">Сохранить</button>
-  
-          <a [routerLink]="'/patient'" class="btn btn-primary" id="btnCancel">Отменить</a>
-  
-    </div>
   </div>
   </form>

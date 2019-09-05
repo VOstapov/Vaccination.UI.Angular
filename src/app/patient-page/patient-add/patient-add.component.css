@@ -1,4 +1,4 @@
-form {
+#divAdd {
   margin: 20px;
   border: 1px solid black;
   padding: 10px;
@@ -6,20 +6,6 @@ form {
   margin: 20px auto;
   background-color: aliceblue
 }
-
-label {
-  margin-right: 10px;
-}
-
-div {
-  margin-top: 5px;
-}
-
-#soname, #name, #patronomic, #birthday, #genderDiv, #snils {
-  float: right;
-  width: 200px;
-}
-
 
 #btnCancel, #btnOk {
   margin: 5px;

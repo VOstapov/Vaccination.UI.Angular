@@ -15,6 +15,8 @@ import { mergeMap } from 'rxjs/operators';
 export class PatientEditComponent implements OnInit, OnDestroy {
 
 
+  form: FormGroup;
+
   s1: Subscription;
   patient: Patient;
   
@@ -43,7 +45,21 @@ export class PatientEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSave(patient: Patient) {
+  formChanged(form: FormGroup) {
+    this.form = form;
+  }
+
+  onSave() {
+    const { soname, name, patronomic, birthday, gender, snils } = this.form.value;
+    const patient = new Patient(
+      soname,
+      name,
+      patronomic,
+      birthday,
+      gender,
+      snils,
+      this.patient.id);
+
     const sub = this.patientService
       .put(patient)
       .subscribe((patient: Patient) => {

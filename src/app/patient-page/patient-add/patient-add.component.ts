@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class PatientAddComponent implements OnInit {
 
+  form: FormGroup;
+
   constructor(
     private router: Router,
     private patientService: PatientService) {
@@ -23,7 +25,21 @@ export class PatientAddComponent implements OnInit {
     
   }
 
-  onSave(patient: Patient) {
+  formChanged(form: FormGroup) {
+    this.form = form;
+  }
+
+  onSave() {
+    const { soname, name, patronomic, birthday, gender, snils } = this.form.value;
+    const patient = new Patient(
+      soname,
+      name,
+      patronomic,
+      birthday,
+      gender,
+      snils,
+      undefined);
+
     const sub = this.patientService
     .post(patient)
     .subscribe((patient: Patient) => {

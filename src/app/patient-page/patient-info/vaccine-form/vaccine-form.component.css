@@ -6,7 +6,7 @@ div {
   margin-top: 5px;
 }
 
-#soname, #name, #patronomic, #birthday, #genderDiv, #snils {
+#date, #medication {
   float: right;
   width: 200px;
 }

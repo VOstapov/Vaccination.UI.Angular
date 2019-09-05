@@ -1,7 +1,16 @@
 <h2>Редактирование данных пациента</h2>
 
-<app-patient-form
-  (patientEmitter)="onSave($event)"
-  [patient]="patient"
-  [isLoaded]="isLoaded"
-></app-patient-form>
+<div id="divEdit">
+
+  <app-patient-form [patient]="patient" [isLoaded]="isLoaded" (formEmitter)="formChanged($event)"></app-patient-form>
+
+  <div id="buttons" *ngIf="isLoaded">
+    <button type="button" class="btn btn-primary" id="btnOk" [disabled]="form.invalid"
+      (click)="onSave()">Сохранить</button>
+
+    <a [routerLink]="'/patient'" class="btn btn-primary" id="btnCancel">Отменить</a>
+
+    <a [routerLink]="['/patient', patient.id]" class="btn btn-success" id="btnInfo">Прививки</a>
+  </div>
+
+</div>

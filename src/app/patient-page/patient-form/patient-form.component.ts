@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PatientService } from 'src/app/shared/services/patient.service';
 import * as moment from 'moment';
 import { Patient } from 'src/app/shared/models/patient.model';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-patient-form',
@@ -13,9 +14,9 @@ export class PatientFormComponent implements OnInit {
 
   form: FormGroup;
 
-  @Input() isLoaded = false;
+  @Output() formEmitter = new EventEmitter<FormGroup>();
 
-  @Output() patientEmitter = new EventEmitter<Patient>();
+  @Input() isLoaded = false;
 
   @Input() patient: Patient;
 
@@ -51,6 +52,9 @@ export class PatientFormComponent implements OnInit {
       'snils': new FormControl(null, [Validators.required]),
       'gender': new FormControl("Мужской", [Validators.required])
     });
+
+    this.form.statusChanges
+      .subscribe(() => this.formEmitter.emit(this.form));
   }
 
   checkForCorrectDate(control: FormControl) {
@@ -67,17 +71,5 @@ export class PatientFormComponent implements OnInit {
     }
 
     return null;
-  }
-
-  onSubmit() {
-    const { soname, name, patronomic, birthday, gender, snils } = this.form.value;
-    const patient = new Patient(
-      soname,
-      name,
-      patronomic,
-      birthday,
-      gender,
-      snils, this.patient ? this.patient.id : undefined);
-    this.patientEmitter.emit(patient);
   }
 }

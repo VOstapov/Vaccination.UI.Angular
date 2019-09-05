@@ -5,9 +5,11 @@
 </div>
 
 <div *ngIf="isLoaded">
-  <h4>
+  <h5>
       {{patient.soname}} {{patient.name}} {{patient.patronomic}}
-  </h4>
+  </h5>
+
+  <a class="btn btn-primary" [routerLink]="['vaccine', 'add']">Добавить запись о прививке</a>
 
   <table class="table">
       <thead>
