@@ -17,6 +17,7 @@ import { VaccineFormComponent } from './patient-page/patient-info/vaccine-form/v
 import { VaccineAddComponent } from './patient-page/patient-info/vaccine-add/vaccine-add.component';
 import { PatientDefinerComponent } from './patient-page/patient-definer/patient-definer.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+import { VaccineEditComponent } from './patient-page/patient-info/vaccine-edit/vaccine-edit.component';
 
 const appRoutes: Routes =[
   { path: 'patient', component: PatientPageComponent},
@@ -24,6 +25,7 @@ const appRoutes: Routes =[
   { path: 'patient/:patientid/edit', component: PatientEditComponent},
   { path: 'patient/:patientid', component: PatientInfoComponent},
   { path: 'patient/:patientid/vaccine/add', component: VaccineAddComponent},
+  { path: 'patient/:patientid/vaccine/:vaccineid', component: VaccineEditComponent},
   { path: '**', redirectTo: '/patient'}
 ];
 
@@ -39,7 +41,8 @@ const appRoutes: Routes =[
     VaccineFormComponent,
     VaccineAddComponent,
     PatientDefinerComponent,
-    LoaderComponent
+    LoaderComponent,
+    VaccineEditComponent
   ],
   imports: [
     BrowserModule,

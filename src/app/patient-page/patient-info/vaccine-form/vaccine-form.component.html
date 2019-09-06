@@ -1,9 +1,8 @@
-<app-loader *ngIf="!isLoaded"></app-loader>
-<form *ngIf="isLoaded" [formGroup]="form">
+<form [formGroup]="form">
   <div>
     <label for="medication">Препарат</label>
-    <select size="1" name="medication" formControlName="medication" id="medication">
-      <option *ngFor="let m of medications" [attr.value]="m">{{m}}</option>
+    <select size="1" name="medication" formControlName="medication" id="medication" (change)="onMedicalChange($event)">
+      <option *ngFor="let m of medications" [attr.value]="m" [selected]="m === selectedMedication">{{m}}</option>
     </select>
     <p *ngIf="form.get('medication').invalid && form.get('medication').touched" class="alert alert-danger">
         <span>

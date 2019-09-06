@@ -1,6 +1,6 @@
 <h2>
-  Добавление прививки
-</h2>
+    Редактирование прививки
+  </h2>
 
 <app-patient-definer (patientEmitter)="onDefinePatient($event)"></app-patient-definer>
 
@@ -8,7 +8,7 @@
 
   <div id="vcnAddDiv">
 
-    <app-vaccine-form (formEmitter)="formChanged($event)"></app-vaccine-form>
+    <app-vaccine-form (formEmitter)="formChanged($event)" [vaccine]="vaccine"></app-vaccine-form>
 
     <div id="buttons">
       <button type="button" class="btn btn-primary" id="btnVcnOk" [disabled]="!form || form.invalid"

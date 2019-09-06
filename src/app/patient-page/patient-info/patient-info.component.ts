@@ -39,4 +39,12 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
   onDefinePatient(patient: Patient) {
     this.patient = patient;
   }
+
+  delete(vaccine: Vaccine) {
+    this.vaccineService.delete(vaccine)
+      .subscribe((vaccine: Vaccine) => {
+        const index = this.vaccines.findIndex(x => x === vaccine);
+        this.vaccines.splice(index, 1);
+      });
+  }
 }

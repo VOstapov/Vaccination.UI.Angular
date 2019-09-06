@@ -1,0 +1,12 @@
+#vcnAddDiv {
+  margin: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  width: 400px;
+  margin: 20px auto;
+  background-color: aliceblue
+}
+
+#btnVcnCancel, #btnVcnOk {
+  margin: 5px;
+}

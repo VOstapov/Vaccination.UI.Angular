@@ -17,11 +17,19 @@ export class PatientService extends BaseApi<Patient>{
   }
 
   constructor(http: Http,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router: Router) {
     super(http);
   }
 
   getCurrentPatient(): Observable<Patient> {
-    return this.get(this.route.snapshot.params['patientid']);
+    return this.get(this.route.snapshot.params['patientid'])
+      .pipe(map((patient: Patient) => {
+        if (patient) {
+          return patient;
+        } else {
+          this.router.navigate(['/patient']);
+        }
+      }));
   }
 }
