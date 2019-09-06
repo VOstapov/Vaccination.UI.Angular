@@ -1,10 +1,14 @@
 <h2>Редактирование данных пациента</h2>
 
-<div id="divEdit">
+<app-loader *ngIf="!isLoaded">
 
-  <app-patient-form [patient]="patient" [isLoaded]="isLoaded" (formEmitter)="formChanged($event)"></app-patient-form>
+</app-loader>
 
-  <div id="buttons" *ngIf="isLoaded">
+<div id="divEdit" *ngIf="isLoaded">
+
+  <app-patient-form [patient]="patient" (formEmitter)="formChanged($event)"></app-patient-form>
+
+  <div id="buttons">
     <button type="button" class="btn btn-primary" id="btnOk" [disabled]="form.invalid"
       (click)="onSave()">Сохранить</button>
 

@@ -15,6 +15,8 @@ import { PatientInfoComponent } from './patient-page/patient-info/patient-info.c
 import { VaccineService } from './shared/services/vaccine.service';
 import { VaccineFormComponent } from './patient-page/patient-info/vaccine-form/vaccine-form.component';
 import { VaccineAddComponent } from './patient-page/patient-info/vaccine-add/vaccine-add.component';
+import { PatientDefinerComponent } from './patient-page/patient-definer/patient-definer.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
 const appRoutes: Routes =[
   { path: 'patient', component: PatientPageComponent},
@@ -35,7 +37,9 @@ const appRoutes: Routes =[
     PatientFormComponent,
     PatientInfoComponent,
     VaccineFormComponent,
-    VaccineAddComponent
+    VaccineAddComponent,
+    PatientDefinerComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,7 @@ const appRoutes: Routes =[
     HttpModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [PatientService, VaccineService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

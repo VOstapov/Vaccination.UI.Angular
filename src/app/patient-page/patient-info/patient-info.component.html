@@ -1,13 +1,8 @@
 <h2> Информация о сделанных прививках</h2>
 
-<div *ngIf="!isLoaded">
-  Loading...
-</div>
+<app-patient-definer (patientEmitter)="onDefinePatient($event)"></app-patient-definer>
 
-<div *ngIf="isLoaded">
-  <h5>
-      {{patient.soname}} {{patient.name}} {{patient.patronomic}}
-  </h5>
+<div *ngIf="isLoaded && patient">
 
   <a class="btn btn-primary" [routerLink]="['vaccine', 'add']">Добавить запись о прививке</a>
 
@@ -28,7 +23,7 @@
           <td>{{vaccine.medication}}</td>
           <td>{{vaccine.agreement ? 'Да' : 'Нет'}}</td>
           <td>{{vaccine.date | date:'dd.MM.yyyy'}} </td>
-          <td><a [routerLink]="['/patient', patient.id, 'edit']" class="btn btn-success">Редактировать</a></td>
+          <td><a [routerLink]="['/patient', patient.id, 'vaccine', vaccine.id]" class="btn btn-success">Редактировать</a></td>
           <td>  <button class="btn btn-danger" (click)="delete(patient)">Удалить</button>  </td>
         </tr>
       </tbody>

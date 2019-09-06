@@ -1,4 +1,4 @@
-<div *ngIf="!isLoaded"> Loading ...</div>
+<app-loader *ngIf="!isLoaded"></app-loader>
 <form *ngIf="isLoaded" [formGroup]="form">
   <div>
     <label for="medication">Препарат</label>

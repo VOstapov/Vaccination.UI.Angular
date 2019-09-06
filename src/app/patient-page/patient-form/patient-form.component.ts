@@ -1,9 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { PatientService } from 'src/app/shared/services/patient.service';
 import * as moment from 'moment';
 import { Patient } from 'src/app/shared/models/patient.model';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-patient-form',
@@ -15,10 +13,31 @@ export class PatientFormComponent implements OnInit {
   form: FormGroup;
 
   @Output() formEmitter = new EventEmitter<FormGroup>();
-
-  @Input() isLoaded = false;
-
   @Input() patient: Patient;
+
+  maxDate: Date = new Date();
+  minDate: Date = new Date(1900, 0, 1);
+  minDateStr: string;
+  maxDateStr: string;
+
+  constructor() {
+    this.form = new FormGroup({
+      'soname': new FormControl(null, [Validators.required]),
+      'name': new FormControl(null, [Validators.required]),
+      'patronomic': new FormControl(null, [Validators.required]),
+      'birthday': new FormControl(null, [Validators.required, this.checkForCorrectDate.bind(this)]),
+      'snils': new FormControl(null, [Validators.required]),
+      'gender': new FormControl("Мужской", [Validators.required])
+    });
+
+    this.form.statusChanges
+      .subscribe(() => this.formEmitter.emit(this.form));
+  }
+
+  ngOnInit() {
+    this.minDateStr = moment(this.minDate).format("YYYY-MM-DD");
+    this.maxDateStr = moment(this.maxDate).format("YYYY-MM-DD");
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['patient'] && this.patient) {
@@ -31,30 +50,6 @@ export class PatientFormComponent implements OnInit {
         snils: this.patient.snils
       });
     }
-  }
-
-  maxDate: Date = new Date();
-  minDate: Date = new Date(1900, 0, 1);
-  minDateStr: string;
-  maxDateStr: string;
-
-  constructor() { }
-
-  ngOnInit() {
-    this.minDateStr = moment(this.minDate).format("YYYY-MM-DD");
-    this.maxDateStr = moment(this.maxDate).format("YYYY-MM-DD");
-
-    this.form = new FormGroup({
-      'soname': new FormControl(null, [Validators.required]),
-      'name': new FormControl(null, [Validators.required]),
-      'patronomic': new FormControl(null, [Validators.required]),
-      'birthday': new FormControl(null, [Validators.required, this.checkForCorrectDate.bind(this)]),
-      'snils': new FormControl(null, [Validators.required]),
-      'gender': new FormControl("Мужской", [Validators.required])
-    });
-
-    this.form.statusChanges
-      .subscribe(() => this.formEmitter.emit(this.form));
   }
 
   checkForCorrectDate(control: FormControl) {

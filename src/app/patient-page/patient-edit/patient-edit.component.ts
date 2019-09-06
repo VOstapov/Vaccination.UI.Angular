@@ -10,7 +10,8 @@ import { mergeMap } from 'rxjs/operators';
 @Component({
   selector: 'app-patient-edit',
   templateUrl: './patient-edit.component.html',
-  styleUrls: ['./patient-edit.component.css']
+  styleUrls: ['./patient-edit.component.css'],
+  providers: [PatientService]
 })
 export class PatientEditComponent implements OnInit, OnDestroy {
 
@@ -24,14 +25,10 @@ export class PatientEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private patientService: PatientService,
-    private route: ActivatedRoute) {
+    private patientService: PatientService) { }
 
-  }
-  
   ngOnInit(): void {
-    this.s1 = this.route.params
-      .pipe(mergeMap((params: Params) => this.patientService.get(params.id)))
+    this.s1 = this.patientService.getCurrentPatient()
       .subscribe((patient: Patient) => {
         this.patient = patient;
         this.isLoaded = true;

@@ -2,14 +2,9 @@
   Добавление прививки
 </h2>
 
-<div *ngIf="!isLoaded">
-  Loading...
-</div>
+<app-patient-definer (patientEmitter)="onDefinePatient($event)"></app-patient-definer>
 
 <div *ngIf="isLoaded">
-  <h5>
-    {{patient.soname}} {{patient.name}} {{patient.patronomic}}
-  </h5>
 
   <div id="vcnAddDiv">
 

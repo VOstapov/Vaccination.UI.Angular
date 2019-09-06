@@ -2,7 +2,7 @@
 
 <div id="divAdd">
 
-  <app-patient-form (formEmitter)="formChanged($event)" [isLoaded]="true"></app-patient-form>
+  <app-patient-form (formEmitter)="formChanged($event)"></app-patient-form>
 
   <div id="buttons">
     <button type="button" class="btn btn-primary" id="btnOk" [disabled]="!form || form.invalid"

@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-patient-page',
   templateUrl: './patient-page.component.html',
-  styleUrls: ['./patient-page.component.css']
+  styleUrls: ['./patient-page.component.css'],
+  providers: [PatientService]
 })
 export class PatientPageComponent implements OnInit, OnDestroy {
 

@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-patient-add',
   templateUrl: './patient-add.component.html',
-  styleUrls: ['./patient-add.component.css']
+  styleUrls: ['./patient-add.component.css'],
+  providers: [PatientService]
 })
 export class PatientAddComponent implements OnInit {
 

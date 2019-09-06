@@ -6,10 +6,20 @@ import { BaseModel } from '../models/baseModel';
 
 @Injectable()
 export abstract class BaseApi<TResult extends BaseModel> {
-    protected baseUrl = `api/${this.route}/`;
+    private baseUrl: string;
+
+    protected get url() : string{
+      return this.baseUrl;
+    }
+
+    protected set url(value) {
+      this.baseUrl = `api/${value}/`
+    }
 
     constructor(protected http: Http,
-      private route: string) {}
+      route: string) {
+        this.url = route;
+      }
 
     private getUrl(url: string = '') : string {
         return this.baseUrl + url;
