@@ -6,10 +6,13 @@ import { Observable, combineLatest } from 'rxjs';
 import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { mergeMap, map, switchMap } from 'rxjs/operators';
 
+/*
+  в di регистрировать в каждом компоненте, т.к. сервис привязан к текущему урл.
+*/
 @Injectable()
 export class PatientService extends BaseApi<Patient>{
 
-  get path(): string { 
+  get path(): string {
     return "patient";
   }
 
@@ -19,13 +22,6 @@ export class PatientService extends BaseApi<Patient>{
   }
 
   getCurrentPatient(): Observable<Patient> {
-    return this.route.params
-      .pipe(switchMap((params: Params) => {
-        if (params.patientid) {
-          return this.get(params.patientid);
-        } else {
-          return null;
-        }
-      }));
+    return this.get(this.route.snapshot.params['patientid']);
   }
 }

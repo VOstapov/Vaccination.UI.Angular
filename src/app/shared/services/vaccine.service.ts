@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 
 @Injectable()
 /*
-  в di регистрировать в каждом компоненте, т.к. в конструкторе идет определение
+  в di регистрировать в каждом компоненте, т.к. сервис привязан к текущему урл.
 */
 export class VaccineService extends BaseApi<Vaccine> {
 
