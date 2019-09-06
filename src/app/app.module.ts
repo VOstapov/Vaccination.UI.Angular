@@ -21,9 +21,9 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 const appRoutes: Routes =[
   { path: 'patient', component: PatientPageComponent},
   { path: 'patient/add', component: PatientAddComponent},
-  { path: 'patient/:id/edit', component: PatientEditComponent},
-  { path: 'patient/:id', component: PatientInfoComponent},
-  { path: 'patient/:id/vaccine/add', component: VaccineAddComponent},
+  { path: 'patient/:patientid/edit', component: PatientEditComponent},
+  { path: 'patient/:patientid', component: PatientInfoComponent},
+  { path: 'patient/:patientid/vaccine/add', component: VaccineAddComponent},
   { path: '**', redirectTo: '/patient'}
 ];
 

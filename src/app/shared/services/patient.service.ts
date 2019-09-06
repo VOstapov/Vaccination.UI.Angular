@@ -9,16 +9,20 @@ import { mergeMap, map, switchMap } from 'rxjs/operators';
 @Injectable()
 export class PatientService extends BaseApi<Patient>{
 
+  get path(): string { 
+    return "patient";
+  }
+
   constructor(http: Http,
     private route: ActivatedRoute) {
-    super(http, "patient");
+    super(http);
   }
 
   getCurrentPatient(): Observable<Patient> {
     return this.route.params
       .pipe(switchMap((params: Params) => {
-        if (params.id) {
-          return this.get(params.id);
+        if (params.patientid) {
+          return this.get(params.patientid);
         } else {
           return null;
         }

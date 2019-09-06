@@ -7,21 +7,17 @@ import { switchMap, mergeMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 @Injectable()
-export class VaccineService extends BaseApi<Vaccine> implements OnDestroy {
+/*
+  в di регистрировать в каждом компоненте, т.к. в конструкторе идет определение
+*/
+export class VaccineService extends BaseApi<Vaccine> {
 
-  sub: Subscription;
-
-  constructor(http: Http,
-    router: Router,
-    route:ActivatedRoute) {
-      super(http, '');
-
-      this.sub = route.params.subscribe((params: Params) => this.url = `patient/${params.id}/vaccine`);
+  get path(): string {
+    return `patient/${this.route.snapshot.params['patientid']}/vaccine`;
   }
 
-  ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
+  constructor(http: Http,
+    private route: ActivatedRoute) {
+    super(http);
   }
 }

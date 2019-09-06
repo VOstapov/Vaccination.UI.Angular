@@ -6,47 +6,41 @@ import { BaseModel } from '../models/baseModel';
 
 @Injectable()
 export abstract class BaseApi<TResult extends BaseModel> {
-    private baseUrl: string;
 
-    protected get url() : string{
-      return this.baseUrl;
-    }
+  abstract get path(): string;
 
-    protected set url(value) {
-      this.baseUrl = `api/${value}/`
-    }
+  private get baseUrl(): string {
+    return `api/${this.path}/`;
+  }
 
-    constructor(protected http: Http,
-      route: string) {
-        this.url = route;
-      }
+  constructor(protected http: Http) { }
 
-    private getUrl(url: string = '') : string {
-        return this.baseUrl + url;
-    }
+  private getUrl(url: string = ''): string {
+    return this.baseUrl + url;
+  }
 
-    public get(url: string = '') : Observable<TResult> {
-        return this.http.get(this.getUrl(url))
-        .pipe(map((response: Response) => response.json()));
-    }
-
-    public getAll() : Observable<TResult[]> {
-      return this.http.get(this.baseUrl)
+  public get(url: string = ''): Observable<TResult> {
+    return this.http.get(this.getUrl(url))
       .pipe(map((response: Response) => response.json()));
   }
 
-    public post(data: TResult) : Observable<TResult> {
-        return this.http.post(this.baseUrl, data)
-        .pipe(map((response: Response) => response.json()));
-    }
+  public getAll(): Observable<TResult[]> {
+    return this.http.get(this.baseUrl)
+      .pipe(map((response: Response) => response.json()));
+  }
 
-    public put(data: TResult) : Observable<TResult> {
-        return this.http.put(this.getUrl(data.id.toString()), data)
-        .pipe(map((response: Response) => response.json()));
-    }
+  public post(data: TResult): Observable<TResult> {
+    return this.http.post(this.baseUrl, data)
+      .pipe(map((response: Response) => response.json()));
+  }
 
-    public delete(data: TResult) : Observable<TResult> {
-      return this.http.delete(this.getUrl(data.id.toString()))
-        .pipe(map((response: Response) => data));
-    }
+  public put(data: TResult): Observable<TResult> {
+    return this.http.put(this.getUrl(data.id.toString()), data)
+      .pipe(map((response: Response) => response.json()));
+  }
+
+  public delete(data: TResult): Observable<TResult> {
+    return this.http.delete(this.getUrl(data.id.toString()))
+      .pipe(map((response: Response) => data));
+  }
 }
