@@ -1,8 +1,11 @@
 <h2>Просмотр всех пациентов</h2>
 
-<a class="btn btn-primary" [routerLink]="'add'">Добавить</a>
+<div class="head">
+  <!-- добавить фоновый текст в инпуте -->
+    <input type="text" id="searchInput" name="find" [(ngModel)]="searchString" (keyup)="onKeyUp($event)" placeholder="Введите ФИО или СНИЛС">
+    <input type="button" value="Найти" class="btn btn-primary" (click)="onClick()">
+</div>
 
-<!-- find -->
 
 
 <app-loader *ngIf="!isLoaded"></app-loader>
@@ -18,7 +21,7 @@
       <th scope="col">Пол</th>
       <th scope="col">СНИЛС</th>
       <th></th>
-      <th></th>
+      <th><a class="btn btn-primary" [routerLink]="'add'" id="btnAdd">Добавить</a></th>
     </tr>
   </thead>
   <tbody>

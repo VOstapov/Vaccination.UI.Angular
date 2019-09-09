@@ -16,6 +16,9 @@ export class PatientPageComponent implements OnInit, OnDestroy {
   isLoaded: Boolean = false;
 
   patients: Patient[] = [];
+  allPatients: Patient[] = [];
+
+  searchString: string;
 
   constructor(private patientService: PatientService) { }
 
@@ -23,6 +26,7 @@ export class PatientPageComponent implements OnInit, OnDestroy {
     this.sub1 = this.patientService.getAll()
     .subscribe(patients => {
       this.patients = patients;
+      this.allPatients = patients;
       this.isLoaded = true;
     });
   }
@@ -40,5 +44,20 @@ export class PatientPageComponent implements OnInit, OnDestroy {
     if (this.sub1) {
       this.sub1.unsubscribe();
     }
+  }
+
+  onKeyUp(event: KeyboardEvent) {
+    // enter
+    if (event.keyCode === 13) {
+      this.onClick();
+    }
+  }
+
+  onClick() {
+    let searchStr = this.searchString.toLowerCase().trim();
+
+    this.patients = this.allPatients
+    .filter(patient => (`${patient.soname} ${patient.name} ${patient.patronomic}`).toLowerCase()
+      .includes(searchStr.toLowerCase()));
   }
 }
