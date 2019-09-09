@@ -61,7 +61,22 @@
           </div>
       </div>
       <div>
-        <span>СНИЛС</span> <input type="text" id="snils" formControlName="snils">
+        <span>СНИЛС</span>
+        <input type="text" id="snils" formControlName="snils">
+        <p class="alert alert-danger"
+        *ngIf="form.get('snils').invalid && form.get('snils').touched"
+      >
+        <span *ngIf="form.get('snils').errors.incorrectChecksum">
+          Поле заполнено с ошибкой. Контрольная сумма не корректна.
+        </span>
+        <span *ngIf="form.get('snils').errors.incorrectLenght">
+            В СНИЛС должно быть 11 цифр.
+          </span>
+    
+          <span *ngIf="form.get('snils').errors.required">
+              СНИЛС обязателен для заполнения
+            </span>
+      </p>
       </div>
       <p></p>
   </div>
