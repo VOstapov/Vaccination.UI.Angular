@@ -24,7 +24,7 @@ export class PatientFormComponent implements OnInit {
     this.form = new FormGroup({
       'soname': new FormControl(null, [Validators.required]),
       'name': new FormControl(null, [Validators.required]),
-      'patronomic': new FormControl(null, [Validators.required]),
+      'patronomic': new FormControl(null),
       'birthday': new FormControl(null, [Validators.required, this.checkForCorrectDate.bind(this)]),
       'snils': new FormControl(null, [Validators.required, this.snilsValidator.bind(this)]),
       'gender': new FormControl("Мужской", [Validators.required])

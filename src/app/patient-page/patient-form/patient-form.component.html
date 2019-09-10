@@ -21,11 +21,6 @@
       <div>
         <label for="patronomic">Отчество</label>
         <input type="text" id="patronomic" formControlName="patronomic">
-        <p class="alert alert-danger"
-        *ngIf="form.get('patronomic').invalid && form.get('patronomic').touched"
-      >
-        Поле обязательно для заполнения
-      </p>
       </div>
       <div>
         <label for="birthday">Дата рождения</label>

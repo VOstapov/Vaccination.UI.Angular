@@ -24,8 +24,8 @@ export abstract class BaseApi<TResult extends BaseModel> {
       .pipe(map((response: Response) => response.json()));
   }
 
-  public getAll(): Observable<TResult[]> {
-    return this.http.get(this.baseUrl)
+  public getAll(url: string = ''): Observable<TResult[]> {
+    return this.http.get(this.getUrl(url))
       .pipe(map((response: Response) => response.json()));
   }
 

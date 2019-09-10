@@ -16,7 +16,6 @@ export class PatientPageComponent implements OnInit, OnDestroy {
   isLoaded: Boolean = false;
 
   patients: Patient[] = [];
-  allPatients: Patient[] = [];
 
   searchString: string;
 
@@ -26,7 +25,6 @@ export class PatientPageComponent implements OnInit, OnDestroy {
     this.sub1 = this.patientService.getAll()
     .subscribe(patients => {
       this.patients = patients;
-      this.allPatients = patients;
       this.isLoaded = true;
     });
   }
@@ -56,8 +54,7 @@ export class PatientPageComponent implements OnInit, OnDestroy {
   onClick() {
     let searchStr = this.searchString.toLowerCase().trim();
 
-    this.patients = this.allPatients
-    .filter(patient => (`${patient.soname} ${patient.name} ${patient.patronomic}`).toLowerCase()
-      .includes(searchStr.toLowerCase()));
+    this.patientService.getAll(`?searchString=${searchStr}`)
+      .subscribe((patients: Patient[]) => this.patients = patients);
   }
 }
