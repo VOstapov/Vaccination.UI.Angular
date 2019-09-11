@@ -19,8 +19,7 @@ export class PatientDefinerComponent implements OnInit, OnDestroy {
   @Output() patientEmitter = new EventEmitter<Patient>();
 
   constructor(
-    private patientService: PatientService,
-    private router: Router) { }
+    private patientService: PatientService) { }
 
   ngOnInit() {
     this.sub1 = this.patientService.getCurrentPatient()
@@ -28,11 +27,6 @@ export class PatientDefinerComponent implements OnInit, OnDestroy {
       this.patient = patient;
       this.isLoaded = true;
       this.patientEmitter.emit(patient);
-    },
-    (error: Response) => {
-      this.router.navigate(
-        ['/patient'],
-        { queryParams: { messageText: 'Пациент не найден', messageType: 'danger' } });
     });
   }
 

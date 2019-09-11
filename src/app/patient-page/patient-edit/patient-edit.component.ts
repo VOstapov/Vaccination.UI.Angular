@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { Patient } from 'src/app/shared/models/patient.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators'; 
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-patient-edit',
@@ -20,7 +20,7 @@ export class PatientEditComponent implements OnInit, OnDestroy {
 
   s1: Subscription;
   patient: Patient;
-  
+
   isLoaded = false;
 
   constructor(
@@ -31,15 +31,10 @@ export class PatientEditComponent implements OnInit, OnDestroy {
     this.s1 = this.patientService.getCurrentPatient()
       .subscribe(
         (patient: Patient) => {
-        this.patient = patient;
-        this.isLoaded = true;
-        return patient;
-      },
-      (error: Response) => {
-        this.router.navigate(
-          ['/patient'],
-          { queryParams: { messageText: 'Пациент не найден', messageType: 'danger' } });
-      })
+          this.patient = patient;
+          this.isLoaded = true;
+          return patient;
+        });
   }
 
   ngOnDestroy(): void {
