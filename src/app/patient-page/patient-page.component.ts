@@ -62,7 +62,10 @@ export class PatientPageComponent implements OnInit, OnDestroy {
   }
 
   onClick() {
-    let searchStr = this.searchString.toLowerCase().trim();
+    let searchStr: string = "";
+    if(this.searchString) {
+      searchStr = this.searchString.toLowerCase().trim();
+    }
 
     this.patientService.getAll(`?searchString=${searchStr}`)
       .subscribe((patients: Patient[]) => this.patients = patients);
