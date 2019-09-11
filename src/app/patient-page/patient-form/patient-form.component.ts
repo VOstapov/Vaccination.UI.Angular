@@ -2,8 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Patient } from 'src/app/shared/models/patient.model';
-import { DateValidator } from 'src/app/shared/Validators/dateValidator';
-import { SnilsValidator } from 'src/app/shared/Validators/snilsValidator';
+import { DateValidator } from 'src/app/shared/validators/date.validator';
+import { SnilsValidator } from 'src/app/shared/validators/snils.validator';
 
 @Component({
   selector: 'app-patient-form',

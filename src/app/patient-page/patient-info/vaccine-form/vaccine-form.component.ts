@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Vaccine } from 'src/app/shared/models/vaccine.model';
-import { DateValidator } from 'src/app/shared/validators/dateValidator';
+import { DateValidator } from 'src/app/shared/validators/date.validator';
 import { Patient } from 'src/app/shared/models/patient.model';
 
 @Component({
