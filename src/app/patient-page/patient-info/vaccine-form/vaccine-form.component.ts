@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Vaccine } from 'src/app/shared/models/vaccine.model';
 import { DateValidator } from 'src/app/shared/validators/dateValidator';
+import { Patient } from 'src/app/shared/models/patient.model';
 
 @Component({
   selector: 'app-vaccine-form',
@@ -12,7 +13,9 @@ import { DateValidator } from 'src/app/shared/validators/dateValidator';
 export class VaccineFormComponent implements OnInit {
   form: FormGroup;
 
-  @Output() formEmitter = new EventEmitter<FormGroup>();
+  patient: Patient;
+
+  @Output() vaccineEmitter = new EventEmitter<Vaccine>();
 
   @Input() vaccine: Vaccine;
 
@@ -30,8 +33,6 @@ export class VaccineFormComponent implements OnInit {
       'date': new FormControl(null, [Validators.required, DateValidator.checkForCorrectDate(this.minDate, this.maxDate)]),
       'agreement': new FormControl(false, [Validators.requiredTrue])
     });
-
-    this.form.statusChanges.subscribe(x => this.formEmitter.emit(this.form));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,7 +51,17 @@ export class VaccineFormComponent implements OnInit {
     this.maxDateStr = moment(this.maxDate).format("YYYY-MM-DD");
   }
 
+  onDefinePatient(patient: Patient) {
+    this.patient = patient;
+  }
+
   onMedicalChange(event: any) {
     this.selectedMedication = event.target.value;
+  }
+
+  onSave() {
+    const {medication, date, agreement} = this.form.value;
+    this.vaccine = new Vaccine(medication, agreement, date, undefined, this.patient.id);
+    this.vaccineEmitter.emit(this.vaccine);
   }
 }

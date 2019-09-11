@@ -12,13 +12,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./vaccine-add.component.css'],
   providers: [VaccineService]
 })
-export class VaccineAddComponent implements OnInit, OnDestroy {
+export class VaccineAddComponent implements OnInit {
 
-  form: FormGroup
   patient: Patient;
-
-  isLoaded: Boolean = false;
-  sub1: Subscription;
 
   constructor(
     private vaccineService: VaccineService,
@@ -28,32 +24,11 @@ export class VaccineAddComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy(): void {
-    
-  }
-
-  formChanged(form: FormGroup) {
-    this.form = form;
-  }
-
-  onDefinePatient(patient: Patient) {
-    this.patient = patient;
-    this.isLoaded = true;
-  }
-
-  onSave() {
-    const { medication, date, agreement } = this.form.value;
-    const vaccine = new Vaccine(
-      medication,
-      agreement,
-      date,
-      undefined,
-      this.patient.id);
-
+  onSave(vaccine: Vaccine) {
     const sub = this.vaccineService
     .post(vaccine)
     .subscribe((vaccine: Vaccine) => {
-      this.router.navigate(['/patient', `${this.patient.id}`]);
+      this.router.navigate(['/patient', `${vaccine.patientId}`]);
       sub.unsubscribe();
     });
   }

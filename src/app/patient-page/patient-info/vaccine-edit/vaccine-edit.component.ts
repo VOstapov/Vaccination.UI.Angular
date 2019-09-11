@@ -14,11 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class VaccineEditComponent implements OnInit, OnDestroy {
 
-  form: FormGroup
-  patient: Patient;
   vaccine: Vaccine;
-
-  isLoaded: Boolean = false;
   sub1: Subscription;
 
   constructor(
@@ -32,7 +28,6 @@ export class VaccineEditComponent implements OnInit, OnDestroy {
       .subscribe(
         (vaccine: Vaccine) => {
           this.vaccine = vaccine;
-          this.isLoaded = true;
           return vaccine;
         },
         (error: Response) => {
@@ -48,28 +43,13 @@ export class VaccineEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  formChanged(form: FormGroup) {
-    this.form = form;
-  }
-
-  onDefinePatient(patient: Patient) {
-    this.patient = patient;
-    this.isLoaded = true;
-  }
-
-  onSave() {
-    const { medication, date, agreement } = this.form.value;
-    const vaccine = new Vaccine(
-      medication,
-      agreement,
-      date,
-      this.route.snapshot.params['vaccineid'],
-      this.patient.id);
+  onSave(vaccine: Vaccine) {
+    vaccine.id = this.route.snapshot.params['vaccineid'];
 
     const sub = this.vaccineService
       .put(vaccine)
       .subscribe((vaccine: Vaccine) => {
-        this.router.navigate(['/patient', `${this.patient.id}`]);
+        this.router.navigate(['/patient', `${vaccine.patientId}`]);
         sub.unsubscribe();
       });
   }

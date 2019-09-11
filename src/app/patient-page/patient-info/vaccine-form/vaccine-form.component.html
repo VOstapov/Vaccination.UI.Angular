@@ -1,3 +1,5 @@
+<app-patient-definer (patientEmitter)="onDefinePatient($event)"></app-patient-definer>
+
 <form [formGroup]="form">
   <div>
     <label for="medication">Препарат</label>
@@ -5,44 +7,42 @@
       <option *ngFor="let m of medications" [attr.value]="m" [selected]="m === selectedMedication">{{m}}</option>
     </select>
     <p *ngIf="form.get('medication').invalid && form.get('medication').touched" class="alert alert-danger">
-        <span>
-          Необходимо выбрать препарат
-        </span>
-      </p>
+      <span>
+        Необходимо выбрать препарат
+      </span>
+    </p>
   </div>
 
   <div>
-      <label for="date">Дата проведения</label>
-      <input
-        type="date"
-        id="date"
-        formControlName="date"
-        [min]="minDateStr"
-        [max]="maxDateStr"
-      >
-      <p class="alert alert-danger"
-      *ngIf="form.get('date').invalid && form.get('date').touched"
-    >
+    <label for="date">Дата проведения</label>
+    <input type="date" id="date" formControlName="date" [min]="minDateStr" [max]="maxDateStr">
+    <p class="alert alert-danger" *ngIf="form.get('date').invalid && form.get('date').touched">
       <span *ngIf="form.get('date').errors.maxDateError">
         Дата проведения не может быть больше текущей даты
       </span>
       <span *ngIf="form.get('date').errors.minDateError">
-          Дата проведения не может быть меньше {{minDateStr}}
-        </span>
-  
-        <span *ngIf="form.get('date').errors.required">
-            Дата проведения должна быть заполнена
-          </span>
-    </p>
-    </div>
+        Дата проведения не может быть меньше {{minDateStr}}
+      </span>
 
-    <div>
-      <input type="checkbox" formControlName="agreement" id="agreement">
-      <label for="agreement">Наличие согласия на прививку</label>
-      <p *ngIf="form.get('agreement').invalid && form.get('agreement').touched" class="alert alert-danger">
-        <span>
-          Необходимо наличие согласия на прививку
-        </span>
-      </p>
-    </div>
+      <span *ngIf="form.get('date').errors.required">
+        Дата проведения должна быть заполнена
+      </span>
+    </p>
+  </div>
+
+  <div>
+    <input type="checkbox" formControlName="agreement" id="agreement">
+    <label for="agreement">Наличие согласия на прививку</label>
+    <p *ngIf="form.get('agreement').invalid && form.get('agreement').touched" class="alert alert-danger">
+      <span>
+        Необходимо наличие согласия на прививку
+      </span>
+    </p>
+  </div>
+
+  <div id="buttons">
+    <button type="button" class="btn btn-primary" id="btnVcnOk" [disabled]="form.invalid"
+      (click)="onSave()">Сохранить</button>
+    <a [routerLink]="'../../'" class="btn btn-primary" id="btnVcnCancel">Отменить</a>
+  </div>
 </form>

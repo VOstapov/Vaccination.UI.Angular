@@ -2,21 +2,4 @@
   Добавление прививки
 </h2>
 
-<app-patient-definer (patientEmitter)="onDefinePatient($event)"></app-patient-definer>
-
-<div *ngIf="isLoaded">
-
-  <div id="vcnAddDiv">
-
-    <app-vaccine-form (formEmitter)="formChanged($event)"></app-vaccine-form>
-
-    <div id="buttons">
-      <button type="button" class="btn btn-primary" id="btnVcnOk" [disabled]="!form || form.invalid"
-        (click)="onSave()">Сохранить</button>
-
-      <a [routerLink]="'../../'" class="btn btn-primary" id="btnVcnCancel">Отменить</a>
-
-    </div>
-
-  </div>
-</div>
+<app-vaccine-form (vaccineEmitter)="onSave($event)"></app-vaccine-form>
