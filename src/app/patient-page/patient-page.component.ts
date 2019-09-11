@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PatientService } from '../shared/services/patient.service';
 import { Patient } from '../shared/models/patient.model';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Message } from '../shared/models/message.model';
 
 @Component({
   selector: 'app-patient-page',
@@ -12,16 +14,24 @@ import { Subscription } from 'rxjs';
 export class PatientPageComponent implements OnInit, OnDestroy {
 
   sub1: Subscription;
+  sub2: Subscription;
 
   isLoaded: Boolean = false;
+  message: Message;
 
   patients: Patient[] = [];
 
   searchString: string;
 
-  constructor(private patientService: PatientService) { }
+  constructor(
+    private patientService: PatientService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
+    this.sub2 = this.route.queryParams
+      .subscribe((params: Params) => this.message = new Message(params.messageText, params.messageType));
+
     this.sub1 = this.patientService.getAll()
     .subscribe(patients => {
       this.patients = patients;

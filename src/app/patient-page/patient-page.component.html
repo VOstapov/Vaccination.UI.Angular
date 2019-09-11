@@ -1,5 +1,7 @@
 <h2>Просмотр всех пациентов</h2>
 
+<app-notifier [message]="message"></app-notifier>
+
 <div class="head">
   <!-- добавить фоновый текст в инпуте -->
     <input type="text" id="searchInput" name="find" [(ngModel)]="searchString" (keyup)="onKeyUp($event)" placeholder="Введите ФИО или СНИЛС">

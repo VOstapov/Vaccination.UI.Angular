@@ -29,15 +29,17 @@ export class VaccineEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const id = this.route.snapshot.params['vaccineid'];
     this.sub1 = this.vaccineService.get(id)
-      .subscribe((vaccine: Vaccine) => {
-        if (vaccine) {
-        this.vaccine = vaccine;
-        this.isLoaded = true;
-        return vaccine;
-        } else {
-          this.router.navigate(['/patient', this.route.snapshot.params['patientid']]);
-        }
-      })
+      .subscribe(
+        (vaccine: Vaccine) => {
+          this.vaccine = vaccine;
+          this.isLoaded = true;
+          return vaccine;
+        },
+        (error: Response) => {
+          this.router.navigate(
+            ['/patient', this.route.snapshot.params['patientid']],
+            { queryParams: { messageText: 'Прививка не найдена', messageType: 'danger' } });
+        });
   }
 
   ngOnDestroy(): void {
@@ -61,13 +63,14 @@ export class VaccineEditComponent implements OnInit, OnDestroy {
       medication,
       agreement,
       date,
-      this.route.snapshot.params['vaccineid']);
+      this.route.snapshot.params['vaccineid'],
+      this.patient.id);
 
     const sub = this.vaccineService
-    .put(vaccine)
-    .subscribe((vaccine: Vaccine) => {
-      this.router.navigate(['/patient', `${this.patient.id}`]);
-      sub.unsubscribe();
-    });
+      .put(vaccine)
+      .subscribe((vaccine: Vaccine) => {
+        this.router.navigate(['/patient', `${this.patient.id}`]);
+        sub.unsubscribe();
+      });
   }
 }

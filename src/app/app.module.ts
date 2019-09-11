@@ -18,6 +18,7 @@ import { VaccineAddComponent } from './patient-page/patient-info/vaccine-add/vac
 import { PatientDefinerComponent } from './patient-page/patient-definer/patient-definer.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { VaccineEditComponent } from './patient-page/patient-info/vaccine-edit/vaccine-edit.component';
+import { NotifierComponent } from './shared/components/notifier/notifier.component';
 
 const appRoutes: Routes =[
   { path: 'patient', component: PatientPageComponent},
@@ -42,7 +43,8 @@ const appRoutes: Routes =[
     VaccineAddComponent,
     PatientDefinerComponent,
     LoaderComponent,
-    VaccineEditComponent
+    VaccineEditComponent,
+    NotifierComponent
   ],
   imports: [
     BrowserModule,

@@ -29,10 +29,16 @@ export class PatientEditComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.s1 = this.patientService.getCurrentPatient()
-      .subscribe((patient: Patient) => {
+      .subscribe(
+        (patient: Patient) => {
         this.patient = patient;
         this.isLoaded = true;
         return patient;
+      },
+      (error: Response) => {
+        this.router.navigate(
+          ['/patient'],
+          { queryParams: { messageText: 'Пациент не найден', messageType: 'danger' } });
       })
   }
 

@@ -3,6 +3,8 @@ import { Subscription, Observable, combineLatest } from 'rxjs';
 import { Patient } from 'src/app/shared/models/patient.model';
 import { VaccineService } from 'src/app/shared/services/vaccine.service';
 import { Vaccine } from 'src/app/shared/models/vaccine.model';
+import { Message } from 'src/app/shared/models/message.model';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-patient-info',
@@ -16,12 +18,18 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
   patient: Patient;
   vaccines: Vaccine[] = [];
   sub: Subscription;
+  sub2: Subscription;
+  message: Message;
 
   constructor(
-    private vaccineService: VaccineService
+    private vaccineService: VaccineService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.sub2 = this.route.queryParams
+      .subscribe((params: Params) => this.message = new Message(params.messageText, params.messageType));
+
     this.sub =
       this.vaccineService.getAll()
         .subscribe((vaccine: Vaccine[]) => {
@@ -33,6 +41,10 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.sub) {
       this.sub.unsubscribe();
+    }
+
+    if (this.sub2) {
+      this.sub2.unsubscribe();
     }
   }
 

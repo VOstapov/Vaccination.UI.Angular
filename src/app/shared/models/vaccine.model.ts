@@ -5,7 +5,8 @@ export class Vaccine extends BaseModel {
     public medication: string,
     public agreement: boolean,
     public date: Date,
-    id: Number
+    id: Number,
+    public patientId: Number
   ) {
     super(id);
   }

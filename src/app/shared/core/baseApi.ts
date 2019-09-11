@@ -21,7 +21,7 @@ export abstract class BaseApi<TResult extends BaseModel> {
 
   public get(url: string = ''): Observable<TResult> {
     return this.http.get(this.getUrl(url))
-      .pipe(map((response: Response) => response.json()));
+      .pipe(map((response: Response) => response.json()))
   }
 
   public getAll(url: string = ''): Observable<TResult[]> {

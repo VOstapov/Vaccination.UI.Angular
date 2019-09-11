@@ -47,7 +47,8 @@ export class VaccineAddComponent implements OnInit, OnDestroy {
       medication,
       agreement,
       date,
-      undefined);
+      undefined,
+      this.patient.id);
 
     const sub = this.vaccineService
     .post(vaccine)

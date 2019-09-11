@@ -1,5 +1,7 @@
 <h2> Информация о сделанных прививках</h2>
 
+<app-notifier [message]="message"></app-notifier>
+
 <app-patient-definer (patientEmitter)="onDefinePatient($event)"></app-patient-definer>
 
 <div *ngIf="isLoaded && patient">
