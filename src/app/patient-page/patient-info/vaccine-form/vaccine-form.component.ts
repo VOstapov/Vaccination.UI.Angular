@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Vaccine } from 'src/app/shared/models/vaccine.model';
+import { DateValidator } from 'src/app/shared/validators/dateValidator';
 
 @Component({
   selector: 'app-vaccine-form',
@@ -16,7 +17,7 @@ export class VaccineFormComponent implements OnInit {
   @Input() vaccine: Vaccine;
 
   maxDate: Date = new Date();
-  minDate: Date = new Date(1900, 0, 1);
+  minDate: Date = new Date(2000, 0, 1);
   minDateStr: string;
   maxDateStr: string;
 
@@ -26,7 +27,7 @@ export class VaccineFormComponent implements OnInit {
   constructor() { 
     this.form = new FormGroup({
       'medication': new FormControl(this.selectedMedication, [Validators.required]),
-      'date': new FormControl(null, [Validators.required, this.checkForCorrectDate.bind(this)]),
+      'date': new FormControl(null, [Validators.required, DateValidator.checkForCorrectDate(this.minDate, this.maxDate)]),
       'agreement': new FormControl(false, [Validators.requiredTrue])
     });
 
@@ -47,22 +48,6 @@ export class VaccineFormComponent implements OnInit {
   ngOnInit() {
     this.minDateStr = moment(this.minDate).format("YYYY-MM-DD");
     this.maxDateStr = moment(this.maxDate).format("YYYY-MM-DD");
-  }
-
-  checkForCorrectDate(control: FormControl) {
-    const date = new Date(control.value);
-
-    if (date > this.maxDate) {
-      return {
-        'maxDateError': true
-      };
-    } else if (date < this.minDate) {
-      return {
-        'minDateError': true
-      };
-    }
-
-    return null;
   }
 
   onMedicalChange(event: any) {

@@ -38,7 +38,7 @@
           Дата рождения не может быть больше текущей даты
         </span>
         <span *ngIf="form.get('birthday').errors.minDateError">
-            Дата рождения не может быть меньше 1900 года
+            Дата рождения не может быть меньше {{minDateStr}}
           </span>
     
           <span *ngIf="form.get('birthday').errors.required">

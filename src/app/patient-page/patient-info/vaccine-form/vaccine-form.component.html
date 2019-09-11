@@ -27,7 +27,7 @@
         Дата проведения не может быть больше текущей даты
       </span>
       <span *ngIf="form.get('date').errors.minDateError">
-          Дата проведения не может быть меньше 1900 года
+          Дата проведения не может быть меньше {{minDateStr}}
         </span>
   
         <span *ngIf="form.get('date').errors.required">
