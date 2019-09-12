@@ -33,7 +33,7 @@
       <td>{{patient.name}}</td>
       <td>{{patient.patronomic}}</td>
       <td>{{patient.birthday | date:'dd.MM.yyyy'}} </td>
-      <td>{{patient.gender}}</td>
+      <td>{{patient.gender.name}}</td>
       <td>{{patient.snils}}</td>
       <td><a [routerLink]="['/patient', patient.id, 'edit']" class="btn btn-success">Редактировать</a></td>
       <td>  <button class="btn btn-danger" (click)="delete(patient)">Удалить</button>  </td>

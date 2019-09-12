@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { Vaccine } from 'src/app/shared/models/vaccine.model';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 import { Patient } from 'src/app/shared/models/patient.model';
+import { Medication } from 'src/app/shared/models/medication.model';
 
 @Component({
   selector: 'app-vaccine-form',
@@ -24,8 +25,13 @@ export class VaccineFormComponent implements OnInit {
   minDateStr: string;
   maxDateStr: string;
 
-  medications: string[] = ['Эджерикс', 'Вианвак', 'АКДС', 'БЦЖ']
-  selectedMedication: string = this.medications[0];
+  medications: Medication[] = [
+    new Medication(1, 'Эджерикс'),
+    new Medication(2, 'Вианвак'),
+    new Medication(3,'АКДС'),
+    new Medication(4, 'БЦЖ')];
+
+  selectedMedication: Number = this.medications[0].id;
 
   constructor() { 
     this.form = new FormGroup({
@@ -42,7 +48,7 @@ export class VaccineFormComponent implements OnInit {
         date: moment(this.vaccine.date).format("YYYY-MM-DD")
       });
 
-      this.selectedMedication = this.vaccine.medication;
+      this.selectedMedication = this.vaccine.medication.id;
     }
   }
 
@@ -61,7 +67,7 @@ export class VaccineFormComponent implements OnInit {
 
   onSave() {
     const {medication, date, agreement} = this.form.value;
-    this.vaccine = new Vaccine(medication, agreement, date, undefined, this.patient.id);
+    this.vaccine = new Vaccine(new Medication(medication, null), agreement, date, undefined, this.patient.id);
     this.vaccineEmitter.emit(this.vaccine);
   }
 }

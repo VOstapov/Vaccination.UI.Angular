@@ -5,6 +5,7 @@ import { PatientService } from 'src/app/shared/services/patient.service';
 import { Patient } from 'src/app/shared/models/patient.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { Gender } from 'src/app/shared/models/gender.model';
 
 @Component({
   selector: 'app-patient-add',
@@ -37,7 +38,7 @@ export class PatientAddComponent implements OnInit {
       name,
       patronomic,
       birthday,
-      gender,
+      new Gender(gender, null),
       snils,
       undefined);
 

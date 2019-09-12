@@ -1,4 +1,5 @@
 import { BaseModel } from './baseModel';
+import { Gender } from './gender.model';
 
 export class Patient extends BaseModel {
   constructor(
@@ -6,7 +7,7 @@ export class Patient extends BaseModel {
     public name: string,
     public patronomic: string,
     public birthday: Date,
-    public gender: string,
+    public gender: Gender,
     public snils: string,
     id: Number = undefined
   ) {

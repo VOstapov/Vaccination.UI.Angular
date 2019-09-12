@@ -71,3 +71,11 @@ export class PatientPageComponent implements OnInit, OnDestroy {
       .subscribe((patients: Patient[]) => this.patients = patients);
   }
 }
+
+
+/*
+
+  в сервисе сделал пол и препараты в отедльных сущностях.
+  нужно добавить получение справочников, для отрисовки на форме, а также поправить модели, и сервис.
+
+*/

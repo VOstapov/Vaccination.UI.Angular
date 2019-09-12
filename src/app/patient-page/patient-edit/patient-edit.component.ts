@@ -6,6 +6,7 @@ import { Patient } from 'src/app/shared/models/patient.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { Gender } from 'src/app/shared/models/gender.model';
 
 @Component({
   selector: 'app-patient-edit',
@@ -54,7 +55,7 @@ export class PatientEditComponent implements OnInit, OnDestroy {
       name,
       patronomic,
       birthday,
-      gender,
+      new Gender(gender, null),
       snils,
       this.patient.id);
 
