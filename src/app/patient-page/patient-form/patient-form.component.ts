@@ -26,6 +26,7 @@ export class PatientFormComponent implements OnInit {
   maxDateStr: string;
 
   genders: Gender[] = [];
+  selectedGenderId: Number;
 
   constructor(private genderService: GenderService) {
     this.form = new FormGroup({
@@ -34,7 +35,7 @@ export class PatientFormComponent implements OnInit {
       'patronomic': new FormControl(null),
       'birthday': new FormControl(null, [Validators.required, DateValidator.checkForCorrectDate(this.minDate, this.maxDate)]),
       'snils': new FormControl(null, [Validators.required, SnilsValidator.checkOnControlSum()]),
-      'gender': new FormControl(1, [Validators.required])
+      'gender': new FormControl(null, [Validators.required])
     });
 
     this.form.statusChanges
@@ -46,7 +47,9 @@ export class PatientFormComponent implements OnInit {
     this.maxDateStr = moment(this.maxDate).format("YYYY-MM-DD");
 
     this.genderService.getAll()
-    .subscribe((genders: Gender[]) => this.genders = genders);
+    .subscribe((genders: Gender[]) => {
+      this.genders = genders;
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -59,6 +62,8 @@ export class PatientFormComponent implements OnInit {
         gender: this.patient.gender.id.toString(),
         snils: this.patient.snils
       });
+
+      this.selectedGenderId = this.patient.gender.id;
     }
   }
 }

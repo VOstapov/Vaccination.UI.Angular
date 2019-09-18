@@ -1,17 +1,21 @@
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Vaccine } from 'src/app/shared/models/vaccine.model';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 import { Patient } from 'src/app/shared/models/patient.model';
 import { Medication } from 'src/app/shared/models/medication.model';
+import { MedicationService } from 'src/app/shared/services/medication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-vaccine-form',
   templateUrl: './vaccine-form.component.html',
-  styleUrls: ['./vaccine-form.component.css']
+  styleUrls: ['./vaccine-form.component.css'],
+  providers: [MedicationService]
 })
-export class VaccineFormComponent implements OnInit {
+export class VaccineFormComponent implements OnInit, OnDestroy {
+
   form: FormGroup;
 
   patient: Patient;
@@ -25,15 +29,12 @@ export class VaccineFormComponent implements OnInit {
   minDateStr: string;
   maxDateStr: string;
 
-  medications: Medication[] = [
-    new Medication(1, 'Эджерикс'),
-    new Medication(2, 'Вианвак'),
-    new Medication(3,'АКДС'),
-    new Medication(4, 'БЦЖ')];
+  medications: Medication[];
+  sub: Subscription;
 
-  selectedMedication: Number = this.medications[0].id;
+  selectedMedication: Number;
 
-  constructor() { 
+  constructor(private medicationService: MedicationService) { 
     this.form = new FormGroup({
       'medication': new FormControl(this.selectedMedication, [Validators.required]),
       'date': new FormControl(null, [Validators.required, DateValidator.checkForCorrectDate(this.minDate, this.maxDate)]),
@@ -55,6 +56,15 @@ export class VaccineFormComponent implements OnInit {
   ngOnInit() {
     this.minDateStr = moment(this.minDate).format("YYYY-MM-DD");
     this.maxDateStr = moment(this.maxDate).format("YYYY-MM-DD");
+
+    this.sub = this.medicationService.getAll()
+      .subscribe((medications: Medication[]) => this.medications = medications);
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   onDefinePatient(patient: Patient) {

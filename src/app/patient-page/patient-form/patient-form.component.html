@@ -1,78 +1,67 @@
 <form [formGroup]="form">
+  <div>
     <div>
-      <div>
-        <label for="soname">Фамилия</label>
-        <input type="text" id="soname" formControlName="soname">
-        <p class="alert alert-danger"
-        *ngIf="form.get('soname').invalid && form.get('soname').touched"
-      >
+      <label for="soname">Фамилия</label>
+      <input type="text" id="soname" formControlName="soname">
+      <p class="alert alert-danger" *ngIf="form.get('soname').invalid && form.get('soname').touched">
         Поле обязательно для заполнения
       </p>
-      </div>
-      <div>
-        <label for="name">Имя</label>
-        <input type="text" id="name" formControlName="name">
-        <p class="alert alert-danger"
-        *ngIf="form.get('name').invalid && form.get('name').touched"
-      >
+    </div>
+    <div>
+      <label for="name">Имя</label>
+      <input type="text" id="name" formControlName="name">
+      <p class="alert alert-danger" *ngIf="form.get('name').invalid && form.get('name').touched">
         Поле обязательно для заполнения
       </p>
-      </div>
-      <div>
-        <label for="patronomic">Отчество</label>
-        <input type="text" id="patronomic" formControlName="patronomic">
-      </div>
-      <div>
-        <label for="birthday">Дата рождения</label>
-        <input
-          type="date"
-          id="birthday"
-          formControlName="birthday"
-          [min]="minDateStr"
-          [max]="maxDateStr"
-        >
-        <p class="alert alert-danger"
-        *ngIf="form.get('birthday').invalid && form.get('birthday').touched"
-      >
+    </div>
+    <div>
+      <label for="patronomic">Отчество</label>
+      <input type="text" id="patronomic" formControlName="patronomic">
+    </div>
+    <div>
+      <label for="birthday">Дата рождения</label>
+      <input type="date" id="birthday" formControlName="birthday" [min]="minDateStr" [max]="maxDateStr">
+      <p class="alert alert-danger" *ngIf="form.get('birthday').invalid && form.get('birthday').touched">
         <span *ngIf="form.get('birthday').errors.maxDateError">
           Дата рождения не может быть больше текущей даты
         </span>
         <span *ngIf="form.get('birthday').errors.minDateError">
-            Дата рождения не может быть меньше {{minDateStr}}
-          </span>
-    
-          <span *ngIf="form.get('birthday').errors.required">
-              Дата рождения должна быть заполнена
-            </span>
+          Дата рождения не может быть меньше {{minDateStr}}
+        </span>
+
+        <span *ngIf="form.get('birthday').errors.required">
+          Дата рождения должна быть заполнена
+        </span>
       </p>
+    </div>
+    <div>
+      <label>Пол</label>
+      <div id="genderDiv">
+        <label *ngFor="let enum of genders" for="enum_answer_{{enum.name}}">
+          <input id="enum_answer_{{enum.name}}" [value]='enum.id' type="radio" name="gender" formControlName="gender" [checked]="selectedGenderId === enum.id">
+          {{enum.name}}
+        </label>
       </div>
-      <div>
-          <label for="gender">Пол</label>
-          <div id="genderDiv">
-              <input type="radio" name="gender" id="gender1" value="1" formControlName="gender" checked>
-              <label for="gender1">Мужской</label>
-              <input type="radio" name="gender" id="gender2" value="2" formControlName="gender">
-              <label for="gender2">Женский</label>
-          </div>
-      </div>
-      <div>
-        <span>СНИЛС</span>
-        <input type="text" id="snils" formControlName="snils">
-        <p class="alert alert-danger"
-        *ngIf="form.get('snils').invalid && form.get('snils').touched"
-      >
+      <p class="alert alert-danger" *ngIf="form.get('gender').invalid && form.get('gender').touched">
+          Поле обязательно для заполнения
+        </p>
+    </div>
+    <div>
+      <span>СНИЛС</span>
+      <input type="text" id="snils" formControlName="snils">
+      <p class="alert alert-danger" *ngIf="form.get('snils').invalid && form.get('snils').touched">
         <span *ngIf="form.get('snils').errors.incorrectChecksum">
           Поле заполнено с ошибкой. Контрольная сумма не корректна.
         </span>
         <span *ngIf="form.get('snils').errors.incorrectLenght">
-            В СНИЛС должно быть 11 цифр.
-          </span>
-    
-          <span *ngIf="form.get('snils').errors.required">
-              СНИЛС обязателен для заполнения
-            </span>
+          В СНИЛС должно быть 11 цифр.
+        </span>
+
+        <span *ngIf="form.get('snils').errors.required">
+          СНИЛС обязателен для заполнения
+        </span>
       </p>
-      </div>
-      <p></p>
+    </div>
+    <p></p>
   </div>
-  </form>
+</form>
