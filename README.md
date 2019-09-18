@@ -2,26 +2,65 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.0.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Необходимо спроектировать и разработать учетную систему «Прививки». Основная цель которой автоматизация работы с пациентами и учет прививок.
 
-## Code scaffolding
+Сущности
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Пациент
 
-## Build
+**Фамилия** [строка];
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+**Имя** [строка];
 
-## Running unit tests
+Отчество [строка];
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**Дата рождения** [дата];
 
-## Running end-to-end tests
+**Пол** [строка];
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+**СНИЛС** [строка] - необходимо проверить формат и контрольную сумму.
 
-## Further help
+2.Прививка
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+**Препарат** [string] - выбор из списка (Эджерикс, Вианвак, АКДС, БЦЖ);
+
+**Наличие согласия прививку** [boolean];
+
+**Дата проведения** [date], дата вводится по маске дд.мм.гггг.
+
+ 
+Поля выделенные жирным обязательны.
+
+Формы
+Пациент - операции добавления/удаления/редактирования пациентов;
+
+Страница с таблицей содержащая список всех пациентов с возможностью поиска по ФИО и СНИЛС;
+
+Страница создания пациента с валидацией;
+
+Страница редактирования пациента;
+
+Страница просмотра данных пациента с таблицей всех его прививок;
+
+Прививка - операции добавления/удаления/редактирования прививок проведенных пациентам.
+
+Страница добавления прививки для пациента;
+
+Удаление прививки.
+
+ 
+Необходимо реализовать валидацию данных по форматам полей и признаку обязательности. Кроме того  должны правильно обрабатываться ошибки отсутствия данных в запросе или в БД.
+
+ 
+Требуемый инструментарий:
+
+ASP.NET Core 2;
+
+Angular;
+
+Bootstrap;
+
+База данных на свой выбор;
+
+ORM на свой выбор.
